@@ -1,0 +1,5 @@
+email-validator
+python-decouple
+uvicorn
+fastapi
+redis_om
