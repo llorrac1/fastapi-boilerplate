@@ -6,8 +6,7 @@ from pydantic import Field
 import uuid
 import hashlib
 
-from ...db.redis.users.db import UserDB
-
+from ...db.sqlite.db import UserDB
 
 class UserService:
     def __init__(self, db = UserDB(), cache = None):
@@ -25,8 +24,9 @@ class UserService:
         print(user)
 
         try: 
-            saved_user = await self.__db.create_user(user)
-            return PublicUserSchema(**saved_user)
+            saved_user = await self.__db.create_user(user.dict())
+            # return PublicUserSchema(**saved_user)
+            return saved_user
             # return True
 
         except Exception as e:
@@ -61,7 +61,7 @@ class UserService:
     
     async def get_users_by_id(self, email: str = None, name: str = None) -> list[PublicUserSchema]:
         try: 
-            users = await self.__db.get_users(name=name, email=email)
+            users = await self.__db.get_users_by_id(name=name, email=email)
 
             if users:
                 print(users)
@@ -77,9 +77,10 @@ class UserService:
 
     async def update_user(self, user_id: str, user: UserDto) -> PublicUserSchema:
         try: 
-            print("user to update: ", user)
+            # print("user to update: ", user)
             to_update = UserDto(**user.dict(), id = user_id)
-            updated_user = await self.__db.update_user(user_id=user_id, user=to_update)
+            print(to_update)
+            updated_user = await self.__db.update_user(user_id=user_id, data=to_update.dict())
             
             if updated_user: 
                 return PublicUserSchema(**updated_user)

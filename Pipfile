@@ -9,6 +9,7 @@ python-decouple = "*"
 uvicorn = "*"
 fastapi = "*"
 redis-om = "*"
+sqlmodel = "*"
 
 [dev-packages]
 

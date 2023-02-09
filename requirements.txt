@@ -3,3 +3,4 @@ python-decouple
 uvicorn
 fastapi
 redis_om
+sqlmodel
