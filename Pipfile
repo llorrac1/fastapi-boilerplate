@@ -10,6 +10,7 @@ uvicorn = "*"
 fastapi = "*"
 redis-om = "*"
 sqlmodel = "*"
+tinydb = "*"
 
 [dev-packages]
 
